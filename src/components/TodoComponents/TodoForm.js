@@ -6,12 +6,13 @@ function TodoForm(props) {
     <form>
       <input 
         type = "text"
-        name = "todo"
+        name = "item"
+        onChange = {props.inputHandler}
+        value = {props.item}
         placeholder = "...todo"
-        onChange={props.changeHandler}
-        value = {props.value}
+        
       />
-      <button onClick={props.addHandler}>Add Todo</button>
+      <button onClick={props.addItemHandler}>Add Todo</button>
       <button onClick={props.clearCompletedHandler}>Clear Completed</button>
     </form>
   );
