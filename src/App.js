@@ -2,6 +2,7 @@ import React from "react";
 
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
+import "./App.css";
 
 const todos = [
   { task: "Organize Garage", id: 1528817077286, completed: false },
@@ -9,47 +10,65 @@ const todos = [
 ];
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super();
     this.state = {
       todos: todos,
-      item: ""
+      todo: ""
     };
   }
 
-  inputHandler = event => {
+  onChangeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  // addItemHandler = event => {
-  // event.preventDefault();
-  // this.setState((prevState) => {
-  // return {todos: [...prevState.todos,//spread attributes-
-  //{ task: prevState.item,id: Date.now(),completed: false}],item: ""}; });};
-
-
-
-  addItemHandler = event => {
+  addItemHandler = (event) => {
     event.preventDefault();
-    const newTodo = { task: this.state.item, id: Date.now(), completed: false }; 
+    let newTodo = { task: this.state.todo, id: Date.now(), completed: false };
     this.setState({
       todos: [...this.state.todos, newTodo],
-      item: "",
+      todo: ""
     });
+  };
+
+  toggleCompleteHandler = (id) => {
+    this.setState((prevState) => {
+      return {
+        todos: prevState.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              task: todo.task,
+              id: todo.id,
+              completed: !todo.completed
+            };
+          } else {
+            return todo;
+          }
+        })
+      };
+    });
+  };
+
+  clearCompletedTodos = (event) => {
+    event.preventDefault();
+    let todos = this.state.todos.filter((todo) => !todo.completed);
+    this.setState({ todos });
   };
 
 
   render() {
     return (
-      <div>
-        <TodoList todos={this.state.todos} />
+      <div className="container">
+        <h1>ToDo List</h1>
         <TodoForm
-          item = {this.state.item}
-          inputHandler = {this.inputHandler}
-          addItemHandler = {this.addItemHandler}
+          value={this.state.todo}
+          onChangeHandler={this.onChangeHandler}
+          addItemHandler={this.addItemHandler}
+          clearCompletedTodos={this.clearCompletedTodos}
+        />
+        <TodoList
+          todos={this.state.todos}
+          toggleCompleteHandler={this.toggleCompleteHandler}
         />
       </div>
     );
