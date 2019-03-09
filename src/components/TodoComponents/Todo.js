@@ -5,8 +5,8 @@ import "./Todo.css";
 function Todo(props) {
   return (
     <div
-      className={props.todo.completed ? "completed" : " "}
-      onClick={(event) => {
+      className={props.todo.completed ? "completed" : ""}//if todo is completed use css=.competed.
+      onClick={() => {
         props.toggleCompleteHandler(props.todo.id);
       }}
     >

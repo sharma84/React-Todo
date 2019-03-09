@@ -9,11 +9,10 @@ function TodoForm(props) {
         name="todo"
         onChange={props.onChangeHandler}
         value={props.value}
-        //value={props.todo}
         placeholder="...todo"
       />
       <div className="submit">
-      <button  onClick={props.addItemHandler}>Add Todo</button>
+      <button onClick={props.addItemHandler}>Add Todo</button>
       <button onClick={props.clearCompletedTodos}>Clear Completed</button>
       </div>
     </form>

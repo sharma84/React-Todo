@@ -11,7 +11,7 @@ function TodoList(props) {
       {props.todos.map((todo) => (
         <Todo
           toggleCompleteHandler={props.toggleCompleteHandler}
-          key={todo.id}
+          //id={todo.id}
           todo={todo}
         />
       ))}

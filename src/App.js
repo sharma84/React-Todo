@@ -22,14 +22,21 @@ class App extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  addItemHandler = (event) => {
-    event.preventDefault();
-    let newTodo = { task: this.state.todo, id: Date.now(), completed: false };
-    this.setState({
-      todos: [...this.state.todos, newTodo],
-      todo: ""
-    });
-  };
+  addItemHandler = event => {
+  event.preventDefault();
+  this.setState((prevState) => {//prevState=garage, bake, new added todos and etc...
+  return {todos: 
+    [ ...prevState.todos,//spread attributes
+      { task: prevState.todo,
+        id: Date.now(),
+        completed: false
+      }
+    ],
+    todo: ""
+  }; 
+  });};
+
+
 
   toggleCompleteHandler = (id) => {
     this.setState((prevState) => {
@@ -61,13 +68,13 @@ class App extends React.Component {
       <div className="container">
         <h1>ToDo List</h1>
         <TodoForm
-          value={this.state.todo}
+          value={this.state.todo}//new added todo on state
           onChangeHandler={this.onChangeHandler}
           addItemHandler={this.addItemHandler}
           clearCompletedTodos={this.clearCompletedTodos}
         />
         <TodoList
-          todos={this.state.todos}
+          todos={this.state.todos}//todos-old and new todolist
           toggleCompleteHandler={this.toggleCompleteHandler}
         />
       </div>
